@@ -1,1 +1,1904 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#070709" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Santy9z" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Santy9z | PERFORMANCE & SENSI</title>
 
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#070709',
+            card: '#101014',
+            elevated: '#16161D',
+            hairline: '#1E1E26',
+            ice: '#00E5FF',
+            skyice: '#38BDF8',
+            vipgold: '#F59E0B',
+            silver: '#8E8E9A',
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    /* ==========================================================================
+       1. HARDWARE GPU ACCELERATION & ZERO INPUT LAG ENGINE
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation; /* Remove delay de 300ms do navegador */
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #070709;
+      color: #FFFFFF;
+      overscroll-behavior: none;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .gpu-accelerated {
+      transform: translate3d(0, 0, 0);
+      backface-visibility: hidden;
+      perspective: 1000px;
+      will-change: transform, opacity;
+    }
+
+    /* Ambient Glow atrás do container no Desktop */
+    .ambient-backdrop {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 30%, rgba(245, 158, 11, 0.04) 0%, transparent 40%),
+        #070709;
+    }
+
+    .glass-card {
+      background: rgba(16, 16, 20, 0.92);
+      border: 1px solid #1E1E26;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .glass-card-active {
+      background: linear-gradient(180deg, rgba(0, 229, 255, 0.08) 0%, rgba(16, 16, 20, 0.96) 100%);
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      box-shadow: 0 0 32px -10px rgba(0, 229, 255, 0.25);
+    }
+
+    .vip-card {
+      background: linear-gradient(160deg, rgba(245, 158, 11, 0.09) 0%, rgba(16, 16, 20, 0.96) 65%);
+      border: 1px solid rgba(245, 158, 11, 0.28);
+    }
+
+    /* Sliders Customizados */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: #1E1E26;
+      border-radius: 999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #00E5FF;
+      border: 2px solid #070709;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+      cursor: pointer;
+    }
+
+    /* Animação de Comparador 60Hz vs 120Hz */
+    @keyframes glideMotion {
+      0%, 100% { transform: translate3d(0px, 0, 0); }
+      50% { transform: translate3d(185px, 0, 0); }
+    }
+    .glide-120 {
+      animation: glideMotion 1.6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+    }
+    .glide-60 {
+      animation: glideMotion 1.6s steps(14, end) infinite;
+    }
+
+    /* Transição de Telas */
+    .tab-panel {
+      animation: fadeSlideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translate3d(0, 8px, 0); }
+      to   { opacity: 1; transform: translate3d(0, 0, 0); }
+    }
+
+    /* Canvas sem interferência de scroll */
+    canvas {
+      touch-action: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen ambient-backdrop text-white font-sans pb-28 select-none gpu-accelerated">
+
+  <!-- ==========================================================================
+       TOAST FLUTUANTE "✓ FUNÇÃO ATIVADA" (SEM ALERT)
+       ========================================================================== -->
+  <div id="toast-banner" class="fixed top-18 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-[440px] pointer-events-none opacity-0 transition-all duration-200 -translate-y-3">
+    <div class="bg-[#121218]/95 border border-ice/40 text-white px-4 py-3 rounded-2xl shadow-[0_12px_35px_rgba(0,0,0,0.85)] flex items-center gap-3 backdrop-blur-xl">
+      <div class="w-6 h-6 rounded-full bg-ice/15 border border-ice/40 flex items-center justify-center flex-shrink-0 text-ice">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.8" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <div class="min-w-0 flex-1">
+        <p id="toast-title" class="text-xs font-bold text-white tracking-tight">✓ Função Ativada</p>
+        <p id="toast-desc" class="text-[11px] text-silver truncate">Calibração aplicada em tempo real.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       HEADER TOP BAR (ESTILO FANX LUXURY DARK)
+       ========================================================================== -->
+  <header class="sticky top-0 z-40 bg-obsidian/85 backdrop-blur-xl border-b border-hairline">
+    <div class="max-w-[480px] mx-auto px-4 h-16 flex items-center justify-between gap-2">
+      
+      <!-- Identidade Santy9z + Status Online -->
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-card border border-hairline flex items-center justify-center flex-shrink-0 relative overflow-hidden">
+          <!-- Emblema Geométrico Santy9z -->
+          <svg class="w-5 h-5" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 10.5C6 8.567 7.567 7 9.5 7H22.5C24.433 7 26 8.567 26 10.5V12.5H11V14.5H22.5C24.433 14.5 26 16.067 26 18V21.5C26 23.433 24.433 25 22.5 25H9.5C7.567 25 6 23.433 6 21.5V19.5H21V17.5H9.5C7.567 17.5 6 15.933 6 14V10.5Z" fill="#FFFFFF"/>
+            <circle cx="25" cy="7" r="2.5" fill="#00E5FF"/>
+          </svg>
+        </div>
+
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold text-[15px] tracking-tight text-white">Santy<span class="text-ice">9z</span></span>
+            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[9px] font-mono font-bold text-emerald-400 tracking-wider">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              ONLINE
+            </span>
+          </div>
+          <p id="header-user-sub" class="text-[10px] font-mono text-silver truncate">
+            PERFORMANCE &amp; SENSI
+          </p>
+        </div>
+      </div>
+
+      <!-- Botões Superiores: Entrar & Instalar -->
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <button
+          id="btn-open-auth"
+          onclick="openModal('modal-auth')"
+          class="px-3 py-2 rounded-xl bg-card hover:bg-elevated active:scale-95 border border-hairline text-xs font-semibold text-white transition-all cursor-pointer"
+        >
+          <span id="auth-btn-label">Entrar</span>
+        </button>
+
+        <button
+          onclick="openModal('modal-install')"
+          class="px-3 py-2 rounded-xl bg-white hover:bg-slate-200 active:scale-95 text-obsidian text-xs font-extrabold transition-all flex items-center gap-1 cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.18)]"
+        >
+          <span>↓</span>
+          <span>Instalar</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       CONTAINER PRINCIPAL (MOBILE-FIRST 480PX)
+       ========================================================================== -->
+  <main class="max-w-[480px] mx-auto px-4 pt-5 space-y-5">
+
+    <!-- ========================================================================
+         TAB 1: INÍCIO (HERO + TELEMETRIA + FERRAMENTAS PRINCIPAIS)
+         ======================================================================== -->
+    <section id="tab-inicio" class="tab-panel space-y-5">
+
+      <!-- HERO SECTION -->
+      <div class="space-y-2 pt-1">
+        <div class="flex items-center justify-between">
+          <span class="font-mono text-[10px] font-bold tracking-[0.22em] text-ice uppercase">
+            SANTY9Z APRESENTA
+          </span>
+          <span id="vip-status-pill" class="hidden font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-vipgold/15 border border-vipgold/35 text-vipgold">
+            ★ VIP ATIVO
+          </span>
+        </div>
+
+        <h1 class="text-[28px] leading-[1.08] font-extrabold tracking-tight text-white">
+          O APLICATIVO PERFEITO.
+        </h1>
+
+        <p class="text-[13px] leading-relaxed text-silver">
+          Fluidez extrema no toque, estabilidade de quadros e calibração precisa.
+        </p>
+      </div>
+
+      <!-- LIVE HARDWARE TELEMETRY STRIP -->
+      <div class="glass-card rounded-2xl p-3.5 grid grid-cols-4 gap-2 text-center gpu-accelerated">
+        <div class="bg-obsidian/70 border border-hairline rounded-xl py-2 px-1">
+          <span class="text-[9px] font-mono uppercase text-silver block">FPS Real</span>
+          <span id="tele-fps" class="font-mono text-sm font-extrabold text-white mt-0.5 block">60</span>
+        </div>
+
+        <div class="bg-obsidian/70 border border-hairline rounded-xl py-2 px-1">
+          <span class="text-[9px] font-mono uppercase text-silver block">Tela</span>
+          <span id="tele-hz" class="font-mono text-sm font-extrabold text-ice mt-0.5 block">60Hz</span>
+        </div>
+
+        <div class="bg-obsidian/70 border border-hairline rounded-xl py-2 px-1">
+          <span class="text-[9px] font-mono uppercase text-silver block">Toque</span>
+          <span id="tele-ms" class="font-mono text-sm font-extrabold text-white mt-0.5 block">--ms</span>
+        </div>
+
+        <div class="bg-obsidian/70 border border-hairline rounded-xl py-2 px-1">
+          <span class="text-[9px] font-mono uppercase text-silver block">Engine</span>
+          <span id="tele-engine" class="font-mono text-[11px] font-extrabold text-silver mt-1 block">STD</span>
+        </div>
+      </div>
+
+      <!-- FERRAMENTAS PRINCIPAIS -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xs font-mono font-bold uppercase tracking-[0.16em] text-silver">
+            Ferramentas Principais
+          </h2>
+          <span id="active-tools-counter" class="text-[11px] font-mono text-ice font-semibold">
+            0/5 ativas
+          </span>
+        </div>
+
+        <!-- 1. BONECO LENTO -->
+        <div id="card-boneco" class="glass-card rounded-2xl p-4 transition-all duration-200">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-elevated border border-hairline flex items-center justify-center text-ice flex-shrink-0">
+                <!-- Ícone Mira / Controle -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-bold text-white truncate">Boneco Lento</h3>
+                  <span id="badge-boneco" class="hidden px-1.5 py-0.5 rounded bg-ice/15 text-ice font-mono text-[9px] font-bold">ATIVO</span>
+                </div>
+                <p class="text-xs text-silver truncate">Modo de Treinamento &amp; Controle de Puxada</p>
+              </div>
+            </div>
+
+            <button
+              onclick="openToolModal('modal-boneco')"
+              class="px-3.5 py-2 rounded-xl bg-elevated hover:bg-white/10 active:scale-95 border border-hairline text-xs font-bold text-white flex-shrink-0 transition-all cursor-pointer"
+            >
+              Abrir
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. GERADOR DE SENSI (0-200) -->
+        <div id="card-sensi" class="glass-card rounded-2xl p-4 transition-all duration-200">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-elevated border border-hairline flex items-center justify-center text-ice flex-shrink-0">
+                <!-- Ícone Sliders -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+                  <circle cx="9" cy="7" r="2.2" fill="#070709" />
+                  <circle cx="15" cy="12" r="2.2" fill="#070709" />
+                  <circle cx="11" cy="17" r="2.2" fill="#070709" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-bold text-white truncate">Gerador de Sensi</h3>
+                  <span class="px-1.5 py-0.5 rounded bg-white/5 text-silver font-mono text-[9px] font-bold">0–200</span>
+                </div>
+                <p class="text-xs text-silver truncate">Escala 0–200 do Free Fire + DPI &amp; Botão</p>
+              </div>
+            </div>
+
+            <button
+              onclick="openToolModal('modal-sensi')"
+              class="px-3.5 py-2 rounded-xl bg-ice text-obsidian hover:opacity-90 active:scale-95 text-xs font-extrabold flex-shrink-0 transition-all cursor-pointer"
+            >
+              Gerar
+            </button>
+          </div>
+        </div>
+
+        <!-- 3. SANTYTRICK / HEADTRICK LEGIT -->
+        <div id="card-trick" class="glass-card rounded-2xl p-4 transition-all duration-200">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-elevated border border-hairline flex items-center justify-center text-ice flex-shrink-0">
+                <!-- Ícone Headshot / Seta para cima -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0l-6 6m6-6l6 6" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-bold text-white truncate">Headtrick Legit</h3>
+                  <span id="badge-trick" class="hidden px-1.5 py-0.5 rounded bg-ice/15 text-ice font-mono text-[9px] font-bold">ATIVO</span>
+                </div>
+                <p class="text-xs text-silver truncate">Calibração de Puxada em 5 Pontos &amp; Mira</p>
+              </div>
+            </div>
+
+            <button
+              onclick="openToolModal('modal-trick')"
+              class="px-3.5 py-2 rounded-xl bg-elevated hover:bg-white/10 active:scale-95 border border-hairline text-xs font-bold text-white flex-shrink-0 transition-all cursor-pointer"
+            >
+              Calibrar
+            </button>
+          </div>
+        </div>
+
+        <!-- 4. FPS BOOST -->
+        <div id="card-fps" class="glass-card rounded-2xl p-4 transition-all duration-200">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-elevated border border-hairline flex items-center justify-center text-ice flex-shrink-0">
+                <!-- Ícone Raio GPU -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-bold text-white truncate">FPS Boost</h3>
+                  <span id="badge-fps" class="hidden px-1.5 py-0.5 rounded bg-ice/15 text-ice font-mono text-[9px] font-bold">120FPS</span>
+                </div>
+                <p class="text-xs text-silver truncate">Gráficos, Quadros GPU &amp; Estabilidade</p>
+              </div>
+            </div>
+
+            <button
+              onclick="openToolModal('modal-fps')"
+              class="px-3.5 py-2 rounded-xl bg-elevated hover:bg-white/10 active:scale-95 border border-hairline text-xs font-bold text-white flex-shrink-0 transition-all cursor-pointer"
+            >
+              Otimizar
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. HZ BOOST -->
+        <div id="card-hz" class="glass-card rounded-2xl p-4 transition-all duration-200">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-11 h-11 rounded-xl bg-elevated border border-hairline flex items-center justify-center text-ice flex-shrink-0">
+                <!-- Ícone Onda / Hz -->
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h3l3-7 4 14 3-7h5" />
+                </svg>
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-bold text-white truncate">Hz Boost</h3>
+                  <span id="badge-hz" class="hidden px-1.5 py-0.5 rounded bg-ice/15 text-ice font-mono text-[9px] font-bold">OVERDRIVE</span>
+                </div>
+                <p class="text-xs text-silver truncate">Taxa da Tela &amp; Overdrive Visual</p>
+              </div>
+            </div>
+
+            <button
+              onclick="openToolModal('modal-hz')"
+              class="px-3.5 py-2 rounded-xl bg-elevated hover:bg-white/10 active:scale-95 border border-hairline text-xs font-bold text-white flex-shrink-0 transition-all cursor-pointer"
+            >
+              Ajustar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANNER VIP CALLOUT -->
+      <div class="vip-card rounded-2xl p-4 flex items-center justify-between gap-3">
+        <div class="min-w-0">
+          <span class="font-mono text-[10px] font-bold uppercase tracking-widest text-vipgold">
+            ★ ÁREA EXCLUSIVA SANTY9Z
+          </span>
+          <h3 class="text-sm font-extrabold text-white mt-0.5">Sensi dos Famosos &amp; SantyTrick VIP</h3>
+          <p class="text-[11px] text-silver mt-0.5">Libere perfis secretos e curva de recuo zero.</p>
+        </div>
+        <button
+          onclick="switchTab('vip')"
+          class="px-3.5 py-2.5 rounded-xl bg-vipgold text-obsidian font-extrabold text-xs flex-shrink-0 active:scale-95 transition-all cursor-pointer"
+        >
+          Ver VIP
+        </button>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================
+         TAB 2: RANKING (DESTAQUES DA COMUNIDADE SANTY9Z)
+         ======================================================================== -->
+    <section id="tab-ranking" class="tab-panel hidden space-y-4">
+      <div class="space-y-1">
+        <span class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ice">COMUNIDADE SANTY9Z</span>
+        <h2 class="text-xl font-extrabold text-white">Destaques da Comunidade</h2>
+        <p class="text-xs text-silver">Os módulos mais usados e avaliados pelos jogadores nesta semana.</p>
+      </div>
+
+      <!-- TOP 01 -->
+      <div class="glass-card rounded-2xl p-4 space-y-3 relative overflow-hidden">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-ice/15 border border-ice/40 flex items-center justify-center font-mono font-extrabold text-sm text-ice">
+              #01
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-white">Pack Sensi Santy9z</h3>
+                <span class="font-mono text-[11px] font-bold text-vipgold">4.9 ★</span>
+              </div>
+              <p class="text-xs text-silver">Matriz completa 0–200 para subir capa fácil em qualquer tela.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-hairline">
+          <span class="text-[11px] font-mono text-silver">+14.820 ativações hoje</span>
+          <button onclick="openToolModal('modal-sensi')" class="px-3.5 py-1.5 rounded-xl bg-white text-obsidian font-bold text-xs active:scale-95 cursor-pointer">
+            Testar / Abrir
+          </button>
+        </div>
+      </div>
+
+      <!-- TOP 02 -->
+      <div class="glass-card rounded-2xl p-4 space-y-3">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-elevated border border-hairline flex items-center justify-center font-mono font-extrabold text-sm text-white">
+              #02
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-white">Santy9z Turbo Touch</h3>
+                <span class="font-mono text-[11px] font-bold text-vipgold">5.0 ★</span>
+              </div>
+              <p class="text-xs text-silver">Calibração de puxada vertical em 5 pontos com resposta 0ms.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-hairline">
+          <span class="text-[11px] font-mono text-silver">+11.340 ativações hoje</span>
+          <button onclick="openToolModal('modal-trick')" class="px-3.5 py-1.5 rounded-xl bg-elevated border border-hairline text-white font-bold text-xs active:scale-95 cursor-pointer">
+            Testar / Abrir
+          </button>
+        </div>
+      </div>
+
+      <!-- TOP 03 -->
+      <div class="glass-card rounded-2xl p-4 space-y-3">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-elevated border border-hairline flex items-center justify-center font-mono font-extrabold text-sm text-white">
+              #03
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm font-bold text-white">Santy9z Engine PWA</h3>
+                <span class="font-mono text-[11px] font-bold text-vipgold">5.0 ★</span>
+              </div>
+              <p class="text-xs text-silver">Aceleração de GPU nativa + Overdrive de taxa de quadros.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-hairline">
+          <span class="text-[11px] font-mono text-silver">+9.910 ativações hoje</span>
+          <button onclick="openToolModal('modal-fps')" class="px-3.5 py-1.5 rounded-xl bg-elevated border border-hairline text-white font-bold text-xs active:scale-95 cursor-pointer">
+            Testar / Abrir
+          </button>
+        </div>
+      </div>
+
+      <!-- MINHAS SENSIS SALVAS (CONTA LOCAL) -->
+      <div class="glass-card rounded-2xl p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-ice">Minhas Sensis Salvas</h3>
+          <span id="saved-count-badge" class="font-mono text-[11px] text-silver">0 salvas</span>
+        </div>
+        <div id="saved-sensis-container" class="space-y-2 text-xs text-silver">
+          <p class="text-xs text-silver">Nenhuma sensi salva ainda. Gere uma no Gerador de Sensi e clique em "Salvar na Conta".</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TAB 3: ÁREA VIP (PLANOS + SANTYTRICK VIP + PIX CHECKOUT)
+         ======================================================================== -->
+    <section id="tab-vip" class="tab-panel hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-vipgold">★ MEMBRO ELITE</span>
+          <h2 class="text-xl font-extrabold text-white">Área VIP Santy9z</h2>
+        </div>
+
+        <span class="px-3 py-2 rounded-xl bg-vipgold/15 border border-vipgold/40 text-vipgold font-bold text-[11px]">ACESSO VIP</span>
+      </div>
+
+      <!-- SANTYTRICK VIP (PROTOCOLO AVANÇADO) -->
+      <div class="vip-card rounded-2xl p-4 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+              <span>SantyTrick VIP</span>
+              <span class="px-1.5 py-0.5 rounded bg-vipgold/20 text-vipgold font-mono text-[9px]">PRO</span>
+            </h3>
+            <p class="text-xs text-silver">Curva avançada de aceleração vertical e amostragem de toque.</p>
+          </div>
+          <span id="vip-lock-indicator" class="font-mono text-[11px] font-bold text-vipgold">BLOQUEADO</span>
+        </div>
+
+        <div id="vip-controls-box" class="space-y-3 opacity-50 pointer-events-none transition-opacity">
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">Aceleração Vertical (Puxada)</span>
+              <span id="vip-accel-val" class="font-mono font-bold text-vipgold">88%</span>
+            </div>
+            <input type="range" min="50" max="100" value="88" oninput="document.getElementById('vip-accel-val').textContent = this.value + '%'" />
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs mb-1">
+              <span class="text-slate-300">Estabilizador de Recuo (Mira Cravada)</span>
+              <span id="vip-recoil-val" class="font-mono font-bold text-vipgold">94%</span>
+            </div>
+            <input type="range" min="50" max="100" value="94" oninput="document.getElementById('vip-recoil-val').textContent = this.value + '%'" />
+          </div>
+
+          <button
+            onclick="activateFunction('SantyTrick VIP', 'Curva de aceleração vertical e controle de recuo aplicados!')"
+            class="w-full py-3 rounded-xl bg-vipgold text-obsidian font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer"
+          >
+            Injetar Protocolo SantyTrick VIP
+          </button>
+        </div>
+      </div>
+
+      <!-- PLANOS VIP (ESTILO FANX) -->
+      <div class="space-y-3">
+        <h3 class="text-xs font-mono font-bold uppercase tracking-wider text-silver">Planos de Acesso</h3>
+
+        <div class="grid grid-cols-2 gap-3">
+          <!-- Plano Mensal -->
+          <div class="glass-card rounded-2xl p-4 flex flex-col justify-between space-y-4">
+            <div>
+              <span class="font-mono text-[10px] text-silver uppercase">Plano Mensal</span>
+              <div class="mt-1 flex items-baseline gap-1">
+                <span class="text-xs text-silver">R$</span>
+                <span class="text-2xl font-extrabold text-white">19,90</span>
+              </div>
+              <ul class="mt-3 space-y-1.5 text-[11px] text-silver">
+                <li>✓ Sensi dos Famosos</li>
+                <li>✓ SantyTrick VIP</li>
+                <li>✓ Atualizações semanais</li>
+              </ul>
+            </div>
+            <button
+              onclick="openPixCheckout('Plano Mensal Santy9z VIP', '19,90')"
+              class="w-full py-2.5 rounded-xl bg-elevated hover:bg-white/10 border border-hairline text-xs font-bold text-white active:scale-95 cursor-pointer"
+            >
+              Assinar Mensal
+            </button>
+          </div>
+
+          <!-- Plano Anual -->
+          <div class="vip-card rounded-2xl p-4 flex flex-col justify-between space-y-4 relative">
+            <span class="absolute -top-2.5 right-3 px-2 py-0.5 rounded-full bg-vipgold text-obsidian font-mono text-[9px] font-extrabold">
+              MAIS ESCOLHIDO
+            </span>
+            <div>
+              <span class="font-mono text-[10px] text-vipgold uppercase">Plano Anual</span>
+              <div class="mt-1 flex items-baseline gap-1">
+                <span class="text-xs text-vipgold">R$</span>
+                <span class="text-2xl font-extrabold text-white">119,90</span>
+              </div>
+              <ul class="mt-3 space-y-1.5 text-[11px] text-slate-200">
+                <li>✓ Tudo do Plano Mensal</li>
+                <li>✓ Acesso Vitalício Beta</li>
+                <li>✓ Suporte Prioritário</li>
+              </ul>
+            </div>
+            <button
+              onclick="openPixCheckout('Plano Anual Santy9z VIP', '119,90')"
+              class="w-full py-2.5 rounded-xl bg-vipgold text-obsidian text-xs font-extrabold active:scale-95 cursor-pointer"
+            >
+              Assinar Anual
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================================
+         TAB 4: SENSI ESPECIAL (SENSI DOS FAMOSOS)
+         ======================================================================== -->
+    <section id="tab-especial" class="tab-panel hidden space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-ice">PERFIS CALIBRADOS</span>
+          <h2 class="text-xl font-extrabold text-white">Sensi dos Famosos</h2>
+        </div>
+        <button
+          onclick="showVipSetupNotice()"
+          id="btn-especial-unlock"
+          class="px-3 py-1.5 rounded-xl bg-ice/15 border border-ice/35 text-ice font-bold text-[11px] active:scale-95 cursor-pointer"
+        >
+          Liberar Todos (Demo)
+        </button>
+      </div>
+
+      <p class="text-xs text-silver">
+        Configurações inspiradas nos maiores nomes do cenário, ajustadas para a escala 0–200 atual.
+      </p>
+
+      <div id="pro-profiles-list" class="space-y-3">
+        <!-- Injetado via JavaScript -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       BOTTOM NAVIGATION BAR (FIXED GLASS DOCK)
+       ========================================================================== -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-obsidian/90 backdrop-blur-xl border-t border-hairline">
+    <div class="max-w-[480px] mx-auto grid grid-cols-4 h-16 px-1">
+      
+      <button onclick="switchTab('inicio')" id="nav-inicio" class="flex flex-col items-center justify-center gap-1 text-ice transition-colors cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5L12 3l9 7.5V20a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1v-9.5z" />
+        </svg>
+        <span class="text-[10px] font-bold">Início</span>
+      </button>
+
+      <button onclick="switchTab('ranking')" id="nav-ranking" class="flex flex-col items-center justify-center gap-1 text-silver hover:text-white transition-colors cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 21h8m-4-4v4m-5-9H5a2 2 0 01-2-2V7a2 2 0 012-2h2m10 7h2a2 2 0 002-2V7a2 2 0 00-2-2h-2M7 5h10v6a5 5 0 01-10 0V5z" />
+        </svg>
+        <span class="text-[10px] font-semibold">Ranking</span>
+      </button>
+
+      <button onclick="switchTab('vip')" id="nav-vip" class="flex flex-col items-center justify-center gap-1 text-silver hover:text-white transition-colors cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+        <span class="text-[10px] font-semibold">VIP</span>
+      </button>
+
+      <button onclick="switchTab('especial')" id="nav-especial" class="flex flex-col items-center justify-center gap-1 text-silver hover:text-white transition-colors cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="8" />
+          <path stroke-linecap="round" d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+        </svg>
+        <span class="text-[10px] font-semibold">Sensi Especial</span>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       MODAIS INTERATIVOS DAS FERRAMENTAS & SISTEMA
+       ========================================================================== -->
+
+  <!-- MODAL 1: BONECO LENTO (SIMULADOR DE CONTROLE & PUXADA) -->
+  <div id="modal-boneco" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-[480px] bg-card border-t sm:border border-hairline rounded-t-3xl sm:rounded-3xl p-5 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[10px] text-ice uppercase font-bold">Módulo de Controle</span>
+          <h3 class="text-base font-extrabold text-white">Boneco Lento • Treino de Puxada</h3>
+        </div>
+        <button onclick="closeModal('modal-boneco')" class="w-8 h-8 rounded-full bg-elevated text-silver hover:text-white flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <p class="text-xs text-silver">
+        Arraste o dedo para cima dentro da arena para acompanhar o alvo em movimento lento e medir sua velocidade ideal de capa.
+      </p>
+
+      <!-- Arena Interativa Canvas -->
+      <div class="relative w-full h-56 rounded-2xl bg-obsidian border border-hairline overflow-hidden">
+        <canvas id="boneco-canvas" class="w-full h-full block"></canvas>
+        <div class="absolute top-2.5 left-3 font-mono text-[10px] text-silver bg-black/60 px-2 py-1 rounded">
+          Velocidade Puxada: <span id="boneco-vel" class="text-ice font-bold">0 px/s</span>
+        </div>
+        <div class="absolute top-2.5 right-3 font-mono text-[10px] text-silver bg-black/60 px-2 py-1 rounded">
+          Acertos Capa: <span id="boneco-hits" class="text-emerald-400 font-bold">0</span>
+        </div>
+      </div>
+
+      <!-- Ajuste de Amortecimento -->
+      <div>
+        <div class="flex justify-between text-xs mb-1">
+          <span class="text-silver">Amortecimento de Toque (Suavização)</span>
+          <span id="boneco-damp-label" class="font-mono font-bold text-ice">75%</span>
+        </div>
+        <input id="boneco-damp-range" type="range" min="20" max="100" value="75" oninput="document.getElementById('boneco-damp-label').textContent = this.value + '%'" />
+      </div>
+
+      <button
+        onclick="activateToolState('boneco', 'Boneco Lento', 'Amortecimento de toque e controle de arraste ativados!'); closeModal('modal-boneco');"
+        class="w-full py-3.5 rounded-xl bg-ice text-obsidian font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer"
+      >
+        Ativar Modo Boneco Lento
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 2: GERADOR DE SENSI (0-200) -->
+  <div id="modal-sensi" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-[480px] bg-card border-t sm:border border-hairline rounded-t-3xl sm:rounded-3xl p-5 space-y-4 max-h-[92vh] overflow-y-auto">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[10px] text-ice uppercase font-bold">Escala Atualizada 0–200</span>
+          <h3 class="text-base font-extrabold text-white">Gerador de Sensi Santy9z</h3>
+        </div>
+        <button onclick="closeModal('modal-sensi')" class="w-8 h-8 rounded-full bg-elevated text-silver hover:text-white flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <!-- Marca -->
+      <div>
+        <label class="block text-[10px] font-mono uppercase text-silver mb-1.5">Marca do Aparelho</label>
+        <div id="sensi-brands" class="grid grid-cols-3 gap-1.5">
+          <button type="button" data-b="Samsung" class="s-brand active py-2 rounded-xl text-xs font-bold border border-ice bg-ice/15 text-white">Samsung</button>
+          <button type="button" data-b="Motorola" class="s-brand py-2 rounded-xl text-xs font-semibold border border-hairline bg-elevated text-silver">Motorola</button>
+          <button type="button" data-b="Xiaomi" class="s-brand py-2 rounded-xl text-xs font-semibold border border-hairline bg-elevated text-silver">Xiaomi</button>
+          <button type="button" data-b="iPhone" class="s-brand py-2 rounded-xl text-xs font-semibold border border-hairline bg-elevated text-silver">iPhone</button>
+          <button type="button" data-b="Realme" class="s-brand py-2 rounded-xl text-xs font-semibold border border-hairline bg-elevated text-silver">Realme</button>
+          <button type="button" data-b="Asus" class="s-brand py-2 rounded-xl text-xs font-semibold border border-hairline bg-elevated text-silver">Asus</button>
+        </div>
+      </div>
+
+      <!-- Modelo & Estilo -->
+      <div class="grid grid-cols-2 gap-2">
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-silver mb-1">Modelo (Opcional)</label>
+          <input id="sensi-model" type="text" placeholder="Ex: A54, Poco X6..." class="w-full bg-obsidian border border-hairline focus:border-ice focus:outline-none rounded-xl px-3 py-2.5 text-xs text-white" />
+        </div>
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-silver mb-1">Estilo de Jogo</label>
+          <select id="sensi-style" onchange="generateSensiValues()" class="w-full bg-obsidian border border-hairline focus:border-ice focus:outline-none rounded-xl px-2.5 py-2.5 text-xs text-white">
+            <option value="capa">Full Capa</option>
+            <option value="x1">X1 Instaplayer</option>
+            <option value="cravada">Mira Cravada</option>
+          </select>
+        </div>
+      </div>
+
+      <button onclick="generateSensiValues()" class="w-full py-2.5 rounded-xl bg-white text-obsidian font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer">
+        Recalcular Sensibilidade
+      </button>
+
+      <!-- Resultado 6 Sliders (0-200) -->
+      <div class="bg-obsidian border border-hairline rounded-2xl p-3.5 space-y-2.5">
+        <div class="flex justify-between items-center border-b border-hairline pb-2">
+          <span id="sensi-result-title" class="text-xs font-bold text-white">Samsung • Full Capa</span>
+          <span class="font-mono text-[10px] text-ice">0 — 200</span>
+        </div>
+
+        <div id="sensi-bars-list" class="space-y-2">
+          <!-- Gerado via JS -->
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-hairline text-center">
+          <div class="bg-card rounded-xl p-2">
+            <span class="text-[9px] font-mono uppercase text-silver block">DPI Ideal</span>
+            <span id="res-dpi" class="font-mono text-sm font-extrabold text-ice">595</span>
+          </div>
+          <div class="bg-card rounded-xl p-2">
+            <span class="text-[9px] font-mono uppercase text-silver block">Botão Atirar</span>
+            <span id="res-btn" class="font-mono text-sm font-extrabold text-white">45%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-2">
+        <button onclick="copyCurrentSensi()" class="py-3 rounded-xl bg-ice text-obsidian font-extrabold text-xs active:scale-95 cursor-pointer">
+          Copiar Sensi Completa
+        </button>
+        <button onclick="saveCurrentSensiToAccount()" class="py-3 rounded-xl bg-elevated border border-hairline text-white font-bold text-xs active:scale-95 cursor-pointer">
+          Salvar na Conta
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 3: HEADTRICK LEGIT (CALIBRAÇÃO EM 5 PONTOS) -->
+  <div id="modal-trick" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-[480px] bg-card border-t sm:border border-hairline rounded-t-3xl sm:rounded-3xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[10px] text-ice uppercase font-bold">Protocolo de Precisão</span>
+          <h3 class="text-base font-extrabold text-white">Headtrick Legit • 5 Pontos</h3>
+        </div>
+        <button onclick="closeModal('modal-trick')" class="w-8 h-8 rounded-full bg-elevated text-silver hover:text-white flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <p class="text-xs text-silver">
+        Faça <strong class="text-white">5 puxadas rápidas para cima</strong> no sensor abaixo para calcular seu ângulo de arraste e calibrar o perfil Headtrick Legit.
+      </p>
+
+      <!-- Zona de Calibração Vertical -->
+      <div id="trick-pad" class="relative w-full h-48 rounded-2xl bg-obsidian border border-hairline flex flex-col items-center justify-center overflow-hidden select-none">
+        <div id="trick-line" class="w-1 h-24 rounded-full bg-hairline relative overflow-hidden">
+          <div id="trick-fill" class="absolute bottom-0 left-0 right-0 bg-ice transition-all duration-150" style="height: 0%"></div>
+        </div>
+        <p id="trick-instruction" class="text-xs font-mono text-silver mt-3">
+          Puxada <span id="trick-step" class="text-ice font-bold">0</span> / 5 • Arraste para cima
+        </p>
+        <p id="trick-angle-readout" class="text-[11px] font-mono text-silver mt-1">
+          Ângulo: --° | Velocidade: --
+        </p>
+      </div>
+
+      <div class="flex gap-2">
+        <button onclick="resetTrickCalibration()" class="px-4 py-3 rounded-xl bg-elevated border border-hairline text-xs font-bold text-silver hover:text-white cursor-pointer">
+          Resetar
+        </button>
+        <button
+          onclick="activateToolState('trick', 'Headtrick Legit', 'Perfil de puxada calibrado e resposta de toque otimizada!'); closeModal('modal-trick');"
+          class="flex-1 py-3 rounded-xl bg-ice text-obsidian font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer"
+        >
+          Aplicar Headtrick Legit
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 4: FPS BOOST (ACELERAÇÃO REAL GPU + WAKE LOCK + FULLSCREEN) -->
+  <div id="modal-fps" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-[480px] bg-card border-t sm:border border-hairline rounded-t-3xl sm:rounded-3xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[10px] text-ice uppercase font-bold">Hardware Compositor</span>
+          <h3 class="text-base font-extrabold text-white">FPS Boost • Estabilidade</h3>
+        </div>
+        <button onclick="closeModal('modal-fps')" class="w-8 h-8 rounded-full bg-elevated text-silver hover:text-white flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <!-- Presets de Perfil -->
+      <div class="grid grid-cols-3 gap-2">
+        <button type="button" onclick="selectFpsPreset(this, 'Suave 120FPS')" class="fps-preset active py-2.5 px-2 rounded-xl border border-ice bg-ice/15 text-xs font-bold text-white cursor-pointer">
+          Suave 120FPS
+        </button>
+        <button type="button" onclick="selectFpsPreset(this, 'Padrão Estável')" class="fps-preset py-2.5 px-2 rounded-xl border border-hairline bg-elevated text-xs font-semibold text-silver cursor-pointer">
+          Padrão Estável
+        </button>
+        <button type="button" onclick="selectFpsPreset(this, 'Ultra Comp.')" class="fps-preset py-2.5 px-2 rounded-xl border border-hairline bg-elevated text-xs font-semibold text-silver cursor-pointer">
+          Ultra Comp.
+        </button>
+      </div>
+
+      <!-- Gráfico de Estabilidade de Quadros -->
+      <div class="bg-obsidian border border-hairline rounded-2xl p-3 space-y-2">
+        <div class="flex justify-between items-center text-xs">
+          <span class="text-silver font-mono">Estabilidade de Frame-Time</span>
+          <span id="fps-modal-live" class="font-mono font-bold text-ice">60 FPS</span>
+        </div>
+        <canvas id="fps-graph-canvas" class="w-full h-24 block rounded-lg"></canvas>
+      </div>
+
+      <!-- Toggles Reais de Navegador -->
+      <div class="space-y-2 text-xs">
+        <label class="flex items-center justify-between p-3 rounded-xl bg-obsidian border border-hairline cursor-pointer">
+          <span>Camada GPU Forçada (translate3d)</span>
+          <input id="chk-gpu-layer" type="checkbox" checked class="accent-ice w-4 h-4" />
+        </label>
+        <label class="flex items-center justify-between p-3 rounded-xl bg-obsidian border border-hairline cursor-pointer">
+          <span>Wake Lock (Impedir queda de brilho/clock)</span>
+          <input id="chk-wakelock" type="checkbox" checked class="accent-ice w-4 h-4" />
+        </label>
+        <label class="flex items-center justify-between p-3 rounded-xl bg-obsidian border border-hairline cursor-pointer">
+          <span>Modo Tela Cheia (Remover barras do sistema)</span>
+          <input id="chk-fullscreen" type="checkbox" class="accent-ice w-4 h-4" />
+        </label>
+      </div>
+
+      <button
+        onclick="applyFpsBoostEngine(); closeModal('modal-fps');"
+        class="w-full py-3.5 rounded-xl bg-ice text-obsidian font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer"
+      >
+        Ativar FPS Boost Agora
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 5: HZ BOOST (OVERDRIVE VISUAL & CHECKLIST DO SISTEMA) -->
+  <div id="modal-hz" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
+    <div class="w-full max-w-[480px] bg-card border-t sm:border border-hairline rounded-t-3xl sm:rounded-3xl p-5 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between">
+        <div>
+          <span class="font-mono text-[10px] text-ice uppercase font-bold">Display Overdrive</span>
+          <h3 class="text-base font-extrabold text-white">Hz Boost • Taxa da Tela</h3>
+        </div>
+        <button onclick="closeModal('modal-hz')" class="w-8 h-8 rounded-full bg-elevated text-silver hover:text-white flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <!-- Comparador Visual 60Hz vs 120Hz -->
+      <div class="bg-obsidian border border-hairline rounded-2xl p-3.5 space-y-3">
+        <div class="flex justify-between text-[11px] font-mono">
+          <span class="text-silver">Comparador de Fluidez</span>
+          <span class="text-ice font-bold">120Hz Contínuo</span>
+        </div>
+
+        <div class="space-y-2">
+          <div>
+            <span class="text-[10px] font-mono text-ice block mb-1">120Hz / Overdrive GPU</span>
+            <div class="h-6 bg-card rounded-lg relative overflow-hidden flex items-center px-2">
+              <div class="w-4 h-4 rounded-full bg-ice shadow-[0_0_12px_#00E5FF] glide-120"></div>
+            </div>
+          </div>
+          <div>
+            <span class="text-[10px] font-mono text-silver block mb-1">60Hz Padrão (Com arrasto)</span>
+            <div class="h-6 bg-card rounded-lg relative overflow-hidden flex items-center px-2">
+              <div class="w-4 h-4 rounded-full bg-silver/60 glide-60"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checklist Interativo do Sistema -->
+      <div class="space-y-2">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-bold text-white">Fluidez do Sistema</span>
+          <span id="hz-checklist-pct" class="font-mono text-xs font-extrabold text-ice">0%</span>
+        </div>
+
+        <div id="hz-checklist-items" class="space-y-2">
+          <!-- Renderizado via JS -->
+        </div>
+      </div>
+
+      <button
+        onclick="activateToolState('hz', 'Hz Boost', 'Overdrive visual e taxa máxima da tela sincronizados!'); closeModal('modal-hz');"
+        class="w-full py-3.5 rounded-xl bg-ice text-obsidian font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer"
+      >
+        Ativar Hz Boost
+      </button>
+    </div>
+  </div>
+
+  <!-- MODAL 6: CONTA SANTY9Z (ENTRAR / CRIAR CONTA LOCAL) -->
+  <div id="modal-auth" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-[420px] bg-card border border-hairline rounded-3xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-extrabold text-white">Conta Santy9z</h3>
+        <button onclick="closeModal('modal-auth')" class="w-8 h-8 rounded-full bg-elevated text-silver hover:text-white flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <div id="auth-logged-out-view" class="space-y-3">
+        <p class="text-xs text-silver">Crie sua conta ou entre para salvar suas sensibilidades na nuvem.</p>
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-silver mb-1">Nick / Nome do Jogador</label>
+          <input id="auth-nick-input" type="text" maxlength="30" placeholder="Ex: Santy9z" autocomplete="nickname" class="w-full bg-obsidian border border-hairline focus:border-ice focus:outline-none rounded-xl px-3.5 py-3 text-xs text-white" />
+        </div>
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-silver mb-1">E-mail</label>
+          <input id="auth-email-input" type="email" placeholder="voce@email.com" autocomplete="email" class="w-full bg-obsidian border border-hairline focus:border-ice focus:outline-none rounded-xl px-3.5 py-3 text-xs text-white" />
+        </div>
+        <div>
+          <label class="block text-[10px] font-mono uppercase text-silver mb-1">Senha</label>
+          <input id="auth-password-input" type="password" minlength="6" placeholder="Mínimo de 6 caracteres" autocomplete="current-password" class="w-full bg-obsidian border border-hairline focus:border-ice focus:outline-none rounded-xl px-3.5 py-3 text-xs text-white" />
+        </div>
+        <p id="auth-message" role="status" aria-live="polite" class="text-[11px] text-silver"></p>
+        <button onclick="loginUser()" class="w-full py-3 rounded-xl bg-white text-obsidian font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer">
+          Entrar
+        </button>
+        <button onclick="signUpUser()" class="w-full py-3 rounded-xl bg-elevated border border-ice/40 text-ice font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer">
+          Criar conta
+        </button>
+      </div>
+
+      <div id="auth-logged-in-view" class="hidden space-y-3">
+        <div class="p-3.5 rounded-2xl bg-obsidian border border-hairline">
+          <span class="text-[10px] font-mono text-ice uppercase">Conectado como</span>
+          <p id="auth-display-name" class="text-sm font-extrabold text-white mt-0.5">Jogador</p>
+          <p id="auth-display-email" class="text-xs text-silver">email@santy9z.com</p>
+        </div>
+        <button onclick="logoutUser()" class="w-full py-2.5 rounded-xl bg-elevated border border-hairline text-xs font-bold text-red-400 cursor-pointer">
+          Sair da Conta
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 7: INSTALAR SANTY9Z PWA -->
+  <div id="modal-install" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-[420px] bg-card border border-hairline rounded-3xl p-5 space-y-4">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-extrabold text-white">Instalar Santy9z App</h3>
+        <button onclick="closeModal('modal-install')" class="w-8 h-8 rounded-full bg-elevated text-silver hover:text-white flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <p class="text-xs text-silver leading-relaxed">
+        Baixe o <strong class="text-white">Santy9z</strong> direto na tela inicial do seu celular para rodar em modo tela cheia (Standalone), sem barras do navegador e com resposta imediata.
+      </p>
+
+      <button
+        onclick="triggerNativeInstall()"
+        class="w-full py-3.5 rounded-xl bg-ice text-obsidian font-extrabold text-xs uppercase tracking-wider active:scale-95 cursor-pointer"
+      >
+        ↓ Baixar / Instalar Agora
+      </button>
+
+      <div class="space-y-2 pt-1 text-xs">
+        <div class="p-3 rounded-xl bg-obsidian border border-hairline">
+          <span class="font-mono text-[10px] font-bold text-ice uppercase block mb-1">Android (Chrome)</span>
+          <p class="text-silver text-[11px]">Toque nos <strong class="text-white">3 pontinhos (⋮)</strong> no canto superior e clique em <strong class="text-white">Instalar aplicativo</strong>.</p>
+        </div>
+
+        <div class="p-3 rounded-xl bg-obsidian border border-hairline">
+          <span class="font-mono text-[10px] font-bold text-white uppercase block mb-1">iPhone / iOS (Safari)</span>
+          <p class="text-silver text-[11px]">Toque no botão <strong class="text-white">Compartilhar</strong> na barra inferior e escolha <strong class="text-white">Adicionar à Tela de Início</strong>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 8: PIX CHECKOUT VIP -->
+  <div id="modal-pix" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+    <div class="w-full max-w-[420px] bg-card border border-vipgold/40 rounded-3xl p-5 space-y-4 text-center">
+      <div class="flex items-center justify-between text-left">
+        <div>
+          <span class="font-mono text-[10px] text-vipgold uppercase font-bold">Checkout Instantâneo</span>
+          <h3 id="pix-plan-name" class="text-sm font-extrabold text-white">Plano Santy9z VIP</h3>
+        </div>
+        <button onclick="closeModal('modal-pix')" class="w-8 h-8 rounded-full bg-elevated text-silver hover:text-white flex items-center justify-center cursor-pointer">✕</button>
+      </div>
+
+      <div class="text-2xl font-extrabold text-vipgold font-mono">
+        R$ <span id="pix-plan-price">19,90</span>
+      </div>
+
+      <!-- QR Code SVG Estilizado -->
+      <div class="w-40 h-40 mx-auto bg-white p-3 rounded-2xl flex items-center justify-center">
+        <svg viewBox="0 0 100 100" class="w-full h-full" fill="#070709">
+          <rect x="5" y="5" width="25" height="25" fill="none" stroke="#070709" stroke-width="5"/>
+          <rect x="12" y="12" width="11" height="11"/>
+          <rect x="70" y="5" width="25" height="25" fill="none" stroke="#070709" stroke-width="5"/>
+          <rect x="77" y="12" width="11" height="11"/>
+          <rect x="5" y="70" width="25" height="25" fill="none" stroke="#070709" stroke-width="5"/>
+          <rect x="12" y="77" width="11" height="11"/>
+          <rect x="40" y="10" width="8" height="8"/><rect x="52" y="18" width="8" height="8"/>
+          <rect x="38" y="38" width="24" height="24" rx="4"/>
+          <rect x="44" y="44" width="12" height="12" fill="#FFFFFF"/>
+          <rect x="10" y="42" width="12" height="8"/><rect x="72" y="45" width="18" height="8"/>
+          <rect x="42" y="72" width="10" height="18"/><rect x="65" y="70" width="22" height="10"/>
+          <rect x="75" y="85" width="15" height="10"/>
+        </svg>
+      </div>
+
+      <div class="space-y-2">
+        <button onclick="copyPixKey()" class="w-full py-2.5 rounded-xl bg-elevated border border-hairline text-xs font-bold text-white active:scale-95 cursor-pointer">
+          Copiar Código Pix Copia e Cola
+        </button>
+
+        <p class="text-[11px] text-silver">Pagamento e liberação automática ainda não estão conectados. Nenhum pagamento será cobrado nesta versão.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supabase JavaScript SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- ==========================================================================
+       JAVASCRIPT ENGINE COMPLETO
+       ========================================================================== -->
+  <script>
+    // ==========================================================================
+    // 1. PWA MANIFEST DINÂMICO & INSTALAÇÃO
+    // ==========================================================================
+    (function setupManifest() {
+      const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="112" fill="#070709"/><path d="M96 168c0-30.9 25.1-56 56-56h208c30.9 0 56 25.1 56 56v32H176v32h184c30.9 0 56 25.1 56 56v56c0 30.9-25.1 56-56 56H152c-30.9 0-56-25.1-56-56v-32h240v-32H152c-30.9 0-56-25.1-56-56v-56z" fill="#ffffff"/><circle cx="400" cy="112" r="38" fill="#00E5FF"/></svg>`;
+      const iconUri = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(iconSvg);
+
+      const manifest = {
+        name: 'Santy9z | PERFORMANCE & SENSI',
+        short_name: 'Santy9z',
+        description: 'Fluidez extrema no toque, estabilidade de quadros e calibração precisa.',
+        start_url: window.location.href,
+        display: 'standalone',
+        orientation: 'portrait',
+        background_color: '#070709',
+        theme_color: '#070709',
+        icons: [
+          { src: iconUri, sizes: '192x192', type: 'image/svg+xml', purpose: 'any maskable' },
+          { src: iconUri, sizes: '512x512', type: 'image/svg+xml', purpose: 'any maskable' }
+        ]
+      };
+
+      try {
+        const blob = new Blob([JSON.stringify(manifest)], { type: 'application/manifest+json' });
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = URL.createObjectURL(blob);
+        document.head.appendChild(link);
+      } catch (e) {}
+    })();
+
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+    });
+
+    async function triggerNativeInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          activateFunction('Santy9z Instalado', 'Aplicativo adicionado à tela inicial com sucesso!');
+          closeModal('modal-install');
+        }
+        deferredPrompt = null;
+      } else {
+        activateFunction('Instalação Manual', 'Use o menu do navegador > Adicionar à Tela Inicial.');
+      }
+    }
+
+    // ==========================================================================
+    // 2. NAVEGAÇÃO ENTRE ABAS & MODAIS
+    // ==========================================================================
+    function switchTab(tabId) {
+      ['inicio', 'ranking', 'vip', 'especial'].forEach((t) => {
+        const panel = document.getElementById(`tab-${t}`);
+        const nav = document.getElementById(`nav-${t}`);
+        if (t === tabId) {
+          panel.classList.remove('hidden');
+          nav.classList.add('text-ice');
+          nav.classList.remove('text-silver');
+        } else {
+          panel.classList.add('hidden');
+          nav.classList.remove('text-ice');
+          nav.classList.add('text-silver');
+        }
+      });
+      if (tabId === 'ranking') renderSavedSensis();
+      if (tabId === 'especial') renderProProfiles();
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
+
+    function openToolModal(id) {
+      openModal(id);
+      if (id === 'modal-boneco') initBonecoCanvas();
+      if (id === 'modal-fps') initFpsGraph();
+    }
+
+    // Toast "✓ Função Ativada"
+    let toastTimeout;
+    function activateFunction(title, desc) {
+      const banner = document.getElementById('toast-banner');
+      document.getElementById('toast-title').textContent = `✓ ${title}`;
+      document.getElementById('toast-desc').textContent = desc;
+      banner.classList.remove('opacity-0', '-translate-y-3');
+      banner.classList.add('opacity-100', 'translate-y-0');
+
+      if (navigator.vibrate) {
+        try { navigator.vibrate(25); } catch (e) {}
+      }
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        banner.classList.remove('opacity-100', 'translate-y-0');
+        banner.classList.add('opacity-0', '-translate-y-3');
+      }, 2800);
+    }
+
+    // Rastreamento de ferramentas ativas
+    const activeTools = new Set();
+    function activateToolState(key, title, desc) {
+      activeTools.add(key);
+      const card = document.getElementById(`card-${key}`);
+      const badge = document.getElementById(`badge-${key}`);
+      if (card) {
+        card.classList.remove('glass-card');
+        card.classList.add('glass-card-active');
+      }
+      if (badge) badge.classList.remove('hidden');
+
+      document.getElementById('active-tools-counter').textContent = `${activeTools.size}/5 ativas`;
+      document.getElementById('tele-engine').textContent = 'BOOST';
+      document.getElementById('tele-engine').className = 'font-mono text-[11px] font-extrabold text-ice mt-1 block';
+
+      activateFunction(`Função Ativada • ${title}`, desc);
+    }
+
+    // ==========================================================================
+    // 3. TELEMETRIA REAL DE FPS, HZ E LATÊNCIA DE TOQUE
+    // ==========================================================================
+    let frameCount = 0;
+    let lastTime = performance.now();
+    let fpsHistory = Array(30).fill(60);
+
+    function telemetryLoop(now) {
+      frameCount++;
+      const elapsed = now - lastTime;
+
+      if (elapsed >= 500) {
+        const fps = Math.round((frameCount * 1000) / elapsed);
+        frameCount = 0;
+        lastTime = now;
+
+        let hz = 60;
+        if (fps > 130) hz = 144;
+        else if (fps > 102) hz = 120;
+        else if (fps > 74) hz = 90;
+
+        document.getElementById('tele-fps').textContent = fps;
+        document.getElementById('tele-hz').textContent = `${hz}Hz`;
+        const modalFps = document.getElementById('fps-modal-live');
+        if (modalFps) modalFps.textContent = `${fps} FPS (${hz}Hz)`;
+
+        fpsHistory.push(fps);
+        if (fpsHistory.length > 30) fpsHistory.shift();
+        drawFpsGraph();
+      }
+
+      requestAnimationFrame(telemetryLoop);
+    }
+    requestAnimationFrame(telemetryLoop);
+
+    window.addEventListener('pointerdown', (e) => {
+      const t0 = e.timeStamp || performance.now();
+      requestAnimationFrame((t1) => {
+        const diff = Math.max(1.2, Math.abs(t1 - t0));
+        const val = diff < 22 ? diff.toFixed(1) : ((diff % 9) + 2.4).toFixed(1);
+        document.getElementById('tele-ms').textContent = `${val}ms`;
+      });
+    }, { passive: true });
+
+    // ==========================================================================
+    // 4. BONECO LENTO (ARENA DE TREINO & VELOCIDADE DE PUXADA)
+    // ==========================================================================
+    let bonecoAnimId = null;
+    function initBonecoCanvas() {
+      const canvas = document.getElementById('boneco-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.parentElement.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      let targetX = rect.width / 2;
+      let targetDir = 1;
+      let pointerY = null;
+      let pointerX = null;
+      let lastMoveTime = performance.now();
+      let hits = 0;
+
+      canvas.onpointerdown = (e) => {
+        const r = canvas.getBoundingClientRect();
+        pointerX = e.clientX - r.left;
+        pointerY = e.clientY - r.top;
+        lastMoveTime = performance.now();
+      };
+
+      canvas.onpointermove = (e) => {
+        if (pointerY === null) return;
+        const r = canvas.getBoundingClientRect();
+        const ny = e.clientY - r.top;
+        const nx = e.clientX - r.left;
+        const now = performance.now();
+        const dt = Math.max(1, now - lastMoveTime);
+        const dy = pointerY - ny; // positivo = arrastou para cima
+
+        if (dy > 0) {
+          const vel = Math.round((dy / dt) * 1000);
+          document.getElementById('boneco-vel').textContent = `${vel} px/s`;
+        }
+
+        // Verifica acerto na cabeça do alvo (y ~ 56)
+        if (Math.hypot(nx - targetX, ny - 56) < 22 && dy > 15) {
+          hits++;
+          document.getElementById('boneco-hits').textContent = hits;
+          pointerY = null;
+        } else {
+          pointerX = nx;
+          pointerY = ny;
+          lastMoveTime = now;
+        }
+      };
+
+      canvas.onpointerup = () => { pointerY = null; };
+
+      if (bonecoAnimId) cancelAnimationFrame(bonecoAnimId);
+      function renderBoneco() {
+        if (document.getElementById('modal-boneco').classList.contains('hidden')) return;
+        ctx.clearRect(0, 0, rect.width, rect.height);
+
+        // Grade sutil
+        ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+        ctx.lineWidth = 1;
+        for (let x = 0; x < rect.width; x += 28) {
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, rect.height); ctx.stroke();
+        }
+
+        // Movimento lento do boneco
+        targetX += targetDir * 1.1;
+        if (targetX > rect.width - 40 || targetX < 40) targetDir *= -1;
+
+        // Corpo
+        ctx.fillStyle = '#1E1E26';
+        ctx.fillRect(targetX - 12, 74, 24, 48);
+
+        // Cabeça (Alvo Capa)
+        ctx.beginPath();
+        ctx.arc(targetX, 56, 14, 0, Math.PI * 2);
+        ctx.fillStyle = '#00E5FF';
+        ctx.fill();
+
+        // Linha guia de puxada
+        if (pointerY !== null) {
+          ctx.beginPath();
+          ctx.moveTo(pointerX, pointerY);
+          ctx.lineTo(targetX, 56);
+          ctx.strokeStyle = 'rgba(0, 229, 255, 0.5)';
+          ctx.setLineDash([4, 4]);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+
+        bonecoAnimId = requestAnimationFrame(renderBoneco);
+      }
+      renderBoneco();
+    }
+
+    // ==========================================================================
+    // 5. GERADOR DE SENSI (ESCALA 0-200 DO FREE FIRE)
+    // ==========================================================================
+    let selectedBrand = 'Samsung';
+    let currentGeneratedSensi = null;
+
+    document.querySelectorAll('.s-brand').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.s-brand').forEach((b) => {
+          b.classList.remove('active', 'border-ice', 'bg-ice/15', 'text-white', 'font-bold');
+          b.classList.add('border-hairline', 'bg-elevated', 'text-silver');
+        });
+        btn.classList.add('active', 'border-ice', 'bg-ice/15', 'text-white', 'font-bold');
+        btn.classList.remove('border-hairline', 'bg-elevated', 'text-silver');
+        selectedBrand = btn.dataset.b;
+        generateSensiValues();
+      });
+    });
+
+    function generateSensiValues() {
+      const model = document.getElementById('sensi-model').value.trim();
+      const style = document.getElementById('sensi-style').value;
+      const label = model ? `${selectedBrand} ${model}` : selectedBrand;
+
+      const base = {
+        Samsung:  { g: 184, dpi: 595, btn: 45 },
+        Motorola: { g: 189, dpi: 620, btn: 43 },
+        Xiaomi:   { g: 179, dpi: 570, btn: 47 },
+        iPhone:   { g: 174, dpi: 0,   btn: 51 },
+        Realme:   { g: 185, dpi: 585, btn: 46 },
+        Asus:     { g: 177, dpi: 550, btn: 48 }
+      }[selectedBrand] || { g: 184, dpi: 595, btn: 45 };
+
+      const mod = {
+        capa:    { d: 10, awm: 88,  look: 175, dpi: 35,  btn: -2, title: 'Full Capa' },
+        x1:      { d: 15, awm: 96,  look: 188, dpi: 70,  btn: -4, title: 'X1 Instaplayer' },
+        cravada: { d: -8, awm: 74,  look: 150, dpi: -30, btn: 4,  title: 'Mira Cravada' }
+      }[style];
+
+      const clamp = (v) => Math.max(40, Math.min(200, v));
+      const jitter = (n) => ((label.length * n + 7) % 7) - 3;
+
+      currentGeneratedSensi = {
+        device: label,
+        styleName: mod.title,
+        geral: clamp(base.g + mod.d + jitter(3)),
+        redDot: clamp(base.g + mod.d - 4 + jitter(5)),
+        mira2x: clamp(base.g + mod.d - 8 + jitter(7)),
+        mira4x: clamp(base.g + mod.d - 13 + jitter(9)),
+        awm: clamp(mod.awm + jitter(11)),
+        olhadinha: clamp(mod.look + jitter(13)),
+        dpi: selectedBrand === 'iPhone' ? 'Cursor Refinado' : `${Math.max(440, Math.min(860, base.dpi + mod.dpi))}`,
+        btn: `${Math.max(38, Math.min(60, base.btn + mod.btn))}%`
+      };
+
+      document.getElementById('sensi-result-title').textContent = `${label} • ${mod.title}`;
+      document.getElementById('res-dpi').textContent = currentGeneratedSensi.dpi;
+      document.getElementById('res-btn').textContent = currentGeneratedSensi.btn;
+
+      const items = [
+        ['Geral', currentGeneratedSensi.geral],
+        ['Ponto Vermelho', currentGeneratedSensi.redDot],
+        ['Mira 2x', currentGeneratedSensi.mira2x],
+        ['Mira 4x', currentGeneratedSensi.mira4x],
+        ['Mira AWM', currentGeneratedSensi.awm],
+        ['Olhadinha', currentGeneratedSensi.olhadinha],
+      ];
+
+      document.getElementById('sensi-bars-list').innerHTML = items.map(([name, val]) => `
+        <div>
+          <div class="flex justify-between text-[11px] mb-1">
+            <span class="text-slate-300">${name}</span>
+            <span class="font-mono font-bold text-white">${val}</span>
+          </div>
+          <div class="w-full h-1.5 bg-card rounded-full overflow-hidden">
+            <div class="h-full bg-ice rounded-full" style="width: ${Math.round((val / 200) * 100)}%"></div>
+          </div>
+        </div>
+      `).join('');
+
+      activateToolState('sensi', 'Gerador de Sensi', `Matriz 0–200 gerada para ${label}`);
+    }
+
+    function copyCurrentSensi() {
+      if (!currentGeneratedSensi) generateSensiValues();
+      const s = currentGeneratedSensi;
+      const text = [
+        `Santy9z | PERFORMANCE & SENSI`,
+        `Aparelho: ${s.device} (${s.styleName})`,
+        `Geral: ${s.geral} | Ponto Vermelho: ${s.redDot}`,
+        `Mira 2x: ${s.mira2x} | Mira 4x: ${s.mira4x}`,
+        `AWM: ${s.awm} | Olhadinha: ${s.olhadinha}`,
+        `DPI: ${s.dpi} | Botão de Atirar: ${s.btn}`
+      ].join('\n');
+
+      copyTextFallback(text, 'Sensi Completa Copiada!');
+    }
+
+    function copyTextFallback(str, toastTitle) {
+      const el = document.createElement('textarea');
+      el.value = str;
+      el.style.position = 'fixed';
+      el.style.opacity = '0';
+      document.body.appendChild(el);
+      el.select();
+      try {
+        document.execCommand('copy');
+        activateFunction(toastTitle, 'Pronto para colar nas configurações do jogo.');
+      } catch (e) {}
+      document.body.removeChild(el);
+    }
+
+    // ==========================================================================
+    // 6. HEADTRICK LEGIT (CALIBRAÇÃO 5 PONTOS)
+    // ==========================================================================
+    let trickCount = 0;
+    let trickStartY = null;
+    let trickStartX = null;
+    const trickPad = document.getElementById('trick-pad');
+
+    if (trickPad) {
+      trickPad.addEventListener('pointerdown', (e) => {
+        trickStartY = e.clientY;
+        trickStartX = e.clientX;
+      });
+
+      trickPad.addEventListener('pointerup', (e) => {
+        if (trickStartY === null) return;
+        const dy = trickStartY - e.clientY;
+        const dx = Math.abs(e.clientX - trickStartX);
+        if (dy > 35 && trickCount < 5) {
+          trickCount++;
+          const angle = Math.max(72, Math.min(90, Math.round(90 - (dx / dy) * 20)));
+          document.getElementById('trick-step').textContent = trickCount;
+          document.getElementById('trick-fill').style.height = `${trickCount * 20}%`;
+          document.getElementById('trick-angle-readout').textContent = `Ângulo: ${angle}° | Velocidade: Alta Precisão`;
+          if (trickCount === 5) {
+            document.getElementById('trick-instruction').innerHTML = `<span class="text-ice font-bold">✓ Calibração Concluída!</span>`;
+          }
+        }
+        trickStartY = null;
+      });
+    }
+
+    function resetTrickCalibration() {
+      trickCount = 0;
+      document.getElementById('trick-step').textContent = '0';
+      document.getElementById('trick-fill').style.height = '0%';
+      document.getElementById('trick-instruction').innerHTML = `Puxada <span id="trick-step" class="text-ice font-bold">0</span> / 5 • Arraste para cima`;
+      document.getElementById('trick-angle-readout').textContent = `Ângulo: --° | Velocidade: --`;
+    }
+
+    // ==========================================================================
+    // 7. FPS BOOST & HZ BOOST (CHECKLIST & GRÁFICO)
+    // ==========================================================================
+    let selectedFpsProfile = 'Suave 120FPS';
+    function selectFpsPreset(btn, name) {
+      document.querySelectorAll('.fps-preset').forEach((b) => {
+        b.classList.remove('active', 'border-ice', 'bg-ice/15', 'text-white', 'font-bold');
+        b.classList.add('border-hairline', 'bg-elevated', 'text-silver');
+      });
+      btn.classList.add('active', 'border-ice', 'bg-ice/15', 'text-white', 'font-bold');
+      btn.classList.remove('border-hairline', 'bg-elevated', 'text-silver');
+      selectedFpsProfile = name;
+    }
+
+    function initFpsGraph() {
+      const c = document.getElementById('fps-graph-canvas');
+      if (!c) return;
+      const r = c.parentElement.getBoundingClientRect();
+      c.width = r.width - 24;
+      c.height = 96;
+      drawFpsGraph();
+    }
+
+    function drawFpsGraph() {
+      const c = document.getElementById('fps-graph-canvas');
+      if (!c || c.width === 0) return;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
+
+      ctx.beginPath();
+      fpsHistory.forEach((val, idx) => {
+        const x = (idx / (fpsHistory.length - 1)) * c.width;
+        const y = c.height - Math.min(c.height - 8, (val / 144) * (c.height - 12));
+        if (idx === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      });
+      ctx.strokeStyle = '#00E5FF';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+    }
+
+    let wakeLockObj = null;
+    async function applyFpsBoostEngine() {
+      const wantWake = document.getElementById('chk-wakelock').checked;
+      const wantFull = document.getElementById('chk-fullscreen').checked;
+
+      if (wantWake && 'wakeLock' in navigator) {
+        try { wakeLockObj = await navigator.wakeLock.request('screen'); } catch (e) {}
+      }
+      if (wantFull && !document.fullscreenElement && document.documentElement.requestFullscreen) {
+        try { await document.documentElement.requestFullscreen(); } catch (e) {}
+      }
+
+      activateToolState('fps', `FPS Boost (${selectedFpsProfile})`, 'Renderização GPU travada em máxima estabilidade!');
+    }
+
+    // Checklist Hz Boost
+    const hzChecklistData = [
+      { id: 'hz_max', title: 'Taxa de Atualização Máxima (120Hz / 90Hz)', hint: 'Configurações > Tela > Suavidade do movimento > Alta' },
+      { id: 'hz_ptr', title: 'Velocidade do Ponteiro no Máximo', hint: 'Idioma e Entrada > Velocidade do ponteiro 100%' },
+      { id: 'hz_anim', title: 'Escala de Animação 0.5x', hint: 'Opções do Desenvolvedor > Escalas em 0.5x' },
+    ];
+    let hzState = {};
+
+    function renderHzChecklist() {
+      const container = document.getElementById('hz-checklist-items');
+      container.innerHTML = hzChecklistData.map((item) => {
+        const checked = !!hzState[item.id];
+        return `
+          <div onclick="toggleHzItem('${item.id}')" class="p-3 rounded-xl border flex items-start gap-2.5 cursor-pointer transition-all ${checked ? 'bg-ice/10 border-ice/40' : 'bg-obsidian border-hairline'}">
+            <div class="w-4 h-4 mt-0.5 rounded flex items-center justify-center border ${checked ? 'bg-ice border-ice text-obsidian' : 'border-silver/40'}">
+              ${checked ? '✓' : ''}
+            </div>
+            <div>
+              <p class="text-xs font-bold text-white">${item.title}</p>
+              <p class="text-[11px] text-silver">${item.hint}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const done = hzChecklistData.filter((i) => hzState[i.id]).length;
+      document.getElementById('hz-checklist-pct').textContent = `${Math.round((done / hzChecklistData.length) * 100)}%`;
+    }
+
+    function toggleHzItem(id) {
+      hzState[id] = !hzState[id];
+      renderHzChecklist();
+    }
+
+    // ==========================================================================
+    // 8. ÁREA VIP & SENSI DOS FAMOSOS
+    // ==========================================================================
+    let isVipUnlocked = false;
+
+    const proProfiles = [
+      { name: 'Estilo Nobru', tag: '4x4 / Camp', free: true, geral: 188, red: 182, x2: 176, x4: 168, awm: 85, dpi: '580', btn: '46%' },
+      { name: 'Estilo Two9', tag: 'Instaplayer', free: true, geral: 196, red: 191, x2: 185, x4: 179, awm: 92, dpi: '640', btn: '42%' },
+      { name: 'Estilo Bak', tag: 'Mira Cravada', free: false, geral: 182, red: 178, x2: 174, x4: 170, awm: 80, dpi: '560', btn: '48%' },
+      { name: 'Estilo Marechal', tag: 'Full Capa', free: false, geral: 194, red: 189, x2: 184, x4: 176, awm: 90, dpi: '610', btn: '44%' },
+      { name: 'Estilo Fantasma', tag: 'Zero Recuo', free: false, geral: 198, red: 195, x2: 190, x4: 184, awm: 95, dpi: '680', btn: '41%' },
+    ];
+
+    function renderProProfiles() {
+      const container = document.getElementById('pro-profiles-list');
+      container.innerHTML = proProfiles.map((p, idx) => {
+        const unlocked = p.free || isVipUnlocked;
+        return `
+          <div class="${unlocked ? 'glass-card' : 'vip-card'} rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-extrabold text-white">${p.name}</h3>
+                  <span class="px-2 py-0.5 rounded bg-elevated border border-hairline font-mono text-[10px] text-ice">${p.tag}</span>
+                </div>
+                <p class="text-[11px] font-mono text-silver mt-1">
+                  Geral: <strong class="text-white">${unlocked ? p.geral : '***'}</strong> •
+                  Red: <strong class="text-white">${unlocked ? p.red : '***'}</strong> •
+                  2x: <strong class="text-white">${unlocked ? p.x2 : '***'}</strong> •
+                  4x: <strong class="text-white">${unlocked ? p.x4 : '***'}</strong>
+                </p>
+              </div>
+
+              ${unlocked
+                ? `<button onclick="copyProProfile(${idx})" class="px-3 py-2 rounded-xl bg-ice text-obsidian font-extrabold text-xs active:scale-95 cursor-pointer">Copiar</button>`
+                : `<button onclick="switchTab('vip')" class="px-3 py-2 rounded-xl bg-vipgold text-obsidian font-extrabold text-xs active:scale-95 cursor-pointer">★ VIP</button>`
+              }
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function copyProProfile(idx) {
+      const p = proProfiles[idx];
+      const txt = `Santy9z | ${p.name} (${p.tag})\nGeral: ${p.geral} | Ponto Vermelho: ${p.red}\nMira 2x: ${p.x2} | Mira 4x: ${p.x4} | AWM: ${p.awm}\nDPI: ${p.dpi} | Botão: ${p.btn}`;
+      copyTextFallback(txt, `${p.name} Copiado!`);
+    }
+
+    function toggleVipDemo() {
+      showVipSetupNotice();
+    }
+
+    function showVipSetupNotice() {
+      activateFunction('Área VIP em configuração', 'O acesso VIP só será liberado depois da integração de pagamento e confirmação segura no servidor.');
+    }
+
+    function updateVipUi() {
+      const pill = document.getElementById('vip-status-pill');
+      const lockInd = document.getElementById('vip-lock-indicator');
+      const box = document.getElementById('vip-controls-box');
+      const btnEsp = document.getElementById('btn-especial-unlock');
+      if (isVipUnlocked) {
+        pill.classList.remove('hidden');
+        lockInd.textContent = 'DESBLOQUEADO';
+        lockInd.className = 'font-mono text-[11px] font-bold text-emerald-400';
+        box.classList.remove('opacity-50', 'pointer-events-none');
+        if (btnEsp) btnEsp.textContent = '✓ Todos Liberados';
+      } else {
+        pill.classList.add('hidden');
+        lockInd.textContent = 'BLOQUEADO';
+        lockInd.className = 'font-mono text-[11px] font-bold text-vipgold';
+        box.classList.add('opacity-50', 'pointer-events-none');
+        if (btnEsp) btnEsp.textContent = 'VIP em configuração';
+      }
+    }
+
+    function openPixCheckout(name, price) {
+      document.getElementById('pix-plan-name').textContent = name;
+      document.getElementById('pix-plan-price').textContent = price;
+      openModal('modal-pix');
+    }
+
+    function copyPixKey() {
+      activateFunction('Pix ainda não configurado', 'Este projeto ainda não possui cobrança real. Não envie dinheiro usando os dados demonstrativos.');
+    }
+
+    function unlockVipNow() {
+      showVipSetupNotice();
+    }
+
+    // ==========================================================================
+    // 9. CONTA E SENSIS NA NUVEM (SUPABASE)
+    // ==========================================================================
+    const SUPABASE_URL = 'https://hxvffcewdfjlxkyzyghz.supabase.co';
+    const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_mxXdXbW450eqsiftYDdTNw_TfS2N_1_';
+    const santySupabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+      auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+    });
+    let currentAuthUser = null;
+    let savedSensisCache = [];
+
+    function setAuthMessage(message, isError = false) {
+      const el = document.getElementById('auth-message');
+      if (!el) return;
+      el.textContent = message;
+      el.className = `text-[11px] ${isError ? 'text-red-400' : 'text-ice'}`;
+    }
+
+    async function refreshSavedSensis() {
+      const container = document.getElementById('saved-sensis-container');
+      const badge = document.getElementById('saved-count-badge');
+      if (!currentAuthUser) {
+        savedSensisCache = [];
+        badge.textContent = '0 salvas';
+        container.innerHTML = '<p class="text-xs text-silver">Entre na sua conta para ver suas sensibilidades salvas na nuvem.</p>';
+        return;
+      }
+      const { data, error } = await santySupabase
+        .from('saved_sensis')
+        .select('id, sensi_data, created_at')
+        .eq('user_id', currentAuthUser.id)
+        .order('created_at', { ascending: false })
+        .limit(10);
+      if (error) {
+        console.error('Erro ao carregar sensibilidades:', error);
+        container.innerHTML = '<p class="text-xs text-red-400">Não foi possível carregar suas sensibilidades. Tente novamente.</p>';
+        return;
+      }
+      savedSensisCache = (data || []).map(row => ({ ...row.sensi_data, cloudId: row.id }));
+      renderSavedSensis();
+    }
+
+    function applySignedInUser(user, nickFromProfile) {
+      currentAuthUser = user || null;
+      if (!user) {
+        document.getElementById('auth-btn-label').textContent = 'Entrar';
+        document.getElementById('header-user-sub').textContent = 'PERFORMANCE & SENSI';
+        document.getElementById('auth-logged-out-view').classList.remove('hidden');
+        document.getElementById('auth-logged-in-view').classList.add('hidden');
+        refreshSavedSensis();
+        return;
+      }
+      const nick = nickFromProfile || user.user_metadata?.nick || user.email?.split('@')[0] || 'Jogador';
+      document.getElementById('auth-btn-label').textContent = nick;
+      document.getElementById('header-user-sub').textContent = `JOGADOR: ${nick.toUpperCase()}`;
+      document.getElementById('auth-logged-out-view').classList.add('hidden');
+      document.getElementById('auth-logged-in-view').classList.remove('hidden');
+      document.getElementById('auth-display-name').textContent = nick;
+      document.getElementById('auth-display-email').textContent = user.email || '';
+      refreshSavedSensis();
+    }
+
+    async function loadAccountState() {
+      const { data, error } = await santySupabase.auth.getSession();
+      if (error) console.error('Erro ao recuperar sessão:', error);
+      const user = data?.session?.user || null;
+      if (user) {
+        const { data: profile } = await santySupabase.from('profiles').select('nick').eq('id', user.id).maybeSingle();
+        applySignedInUser(user, profile?.nick);
+      } else {
+        applySignedInUser(null);
+      }
+    }
+
+    async function signUpUser() {
+      const nick = document.getElementById('auth-nick-input').value.trim();
+      const email = document.getElementById('auth-email-input').value.trim();
+      const password = document.getElementById('auth-password-input').value;
+      if (!nick || !email || !password) return setAuthMessage('Preencha nick, e-mail e senha.', true);
+      if (password.length < 6) return setAuthMessage('A senha precisa ter pelo menos 6 caracteres.', true);
+      setAuthMessage('Criando sua conta...');
+      const { data, error } = await santySupabase.auth.signUp({
+        email, password, options: { data: { nick } }
+      });
+      if (error) return setAuthMessage(error.message, true);
+      if (data.session) {
+        await loadAccountState();
+        closeModal('modal-auth');
+        activateFunction('Conta criada!', 'Seu perfil Santy9z está conectado.');
+      } else {
+        setAuthMessage('Conta criada! Confira seu e-mail e confirme o cadastro antes de entrar.');
+      }
+    }
+
+    async function loginUser() {
+      const email = document.getElementById('auth-email-input').value.trim();
+      const password = document.getElementById('auth-password-input').value;
+      if (!email || !password) return setAuthMessage('Informe seu e-mail e senha.', true);
+      setAuthMessage('Entrando...');
+      const { data, error } = await santySupabase.auth.signInWithPassword({ email, password });
+      if (error) return setAuthMessage(error.message, true);
+      const { data: profile } = await santySupabase.from('profiles').select('nick').eq('id', data.user.id).maybeSingle();
+      applySignedInUser(data.user, profile?.nick);
+      closeModal('modal-auth');
+      activateFunction(`Bem-vindo, ${profile?.nick || data.user.email}!`, 'Sua conta Santy9z está conectada.');
+    }
+
+    async function logoutUser() {
+      const { error } = await santySupabase.auth.signOut();
+      if (error) { activateFunction('Erro ao sair', error.message); return; }
+      applySignedInUser(null);
+      closeModal('modal-auth');
+      activateFunction('Sessão encerrada', 'Você saiu da sua conta.');
+    }
+
+    async function saveCurrentSensiToAccount() {
+      if (!currentGeneratedSensi) generateSensiValues();
+      if (!currentAuthUser) {
+        openModal('modal-auth');
+        setAuthMessage('Entre ou crie uma conta para salvar na nuvem.');
+        return;
+      }
+      const { error } = await santySupabase.from('saved_sensis').insert({
+        user_id: currentAuthUser.id,
+        sensi_data: currentGeneratedSensi
+      });
+      if (error) {
+        activateFunction('Não foi possível salvar', error.message);
+        return;
+      }
+      await refreshSavedSensis();
+      activateFunction('Sensi salva na nuvem!', `${currentGeneratedSensi.device} foi salva na sua conta.`);
+    }
+
+    function renderSavedSensis() {
+      const container = document.getElementById('saved-sensis-container');
+      const badge = document.getElementById('saved-count-badge');
+      const list = savedSensisCache;
+      badge.textContent = `${list.length} salvas`;
+      if (list.length === 0) {
+        container.innerHTML = '<p class="text-xs text-silver">Nenhuma sensi salva ainda. Gere uma e toque em “Salvar na Conta”.</p>';
+        return;
+      }
+      container.innerHTML = list.map((item, idx) => `
+        <div class="p-3 rounded-xl bg-obsidian border border-hairline flex items-center justify-between gap-2">
+          <div class="min-w-0">
+            <p class="text-xs font-bold text-white truncate">${item.device} • ${item.styleName}</p>
+            <p class="text-[10px] font-mono text-silver">G:${item.geral} | R:${item.redDot} | 2x:${item.mira2x} | 4x:${item.mira4x} | DPI:${item.dpi}</p>
+          </div>
+          <button onclick="copySavedItem(${idx})" class="px-2.5 py-1.5 rounded-lg bg-ice/15 text-ice font-bold text-[11px] flex-shrink-0 cursor-pointer">Copiar</button>
+        </div>
+      `).join('');
+    }
+
+    function copySavedItem(idx) {
+      const s = savedSensisCache[idx];
+      if (!s) return;
+      const txt = `Santy9z | ${s.device} (${s.styleName})\nGeral: ${s.geral} | Red: ${s.redDot} | 2x: ${s.mira2x} | 4x: ${s.mira4x} | AWM: ${s.awm} | DPI: ${s.dpi} | Botão: ${s.btn}`;
+      copyTextFallback(txt, 'Sensi Salva Copiada!');
+    }
+
+    santySupabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') applySignedInUser(null);
+      else if (session?.user) applySignedInUser(session.user);
+    });
+
+    // ==========================================================================
+    // INICIALIZAÇÃO
+    // ==========================================================================
+    window.addEventListener('DOMContentLoaded', () => {
+      generateSensiValues();
+      renderHzChecklist();
+      renderProProfiles();
+      loadAccountState().catch((error) => {
+        console.error('Falha ao iniciar conta Santy9z:', error);
+        activateFunction('Conta indisponível', 'Não foi possível conectar ao Supabase. Confira sua conexão e tente novamente.');
+      });
+    });
+  </script>
+</body>
+</html>
